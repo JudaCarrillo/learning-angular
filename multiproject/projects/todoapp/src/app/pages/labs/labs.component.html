@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>Hola este es mi primer proyecto</h1>
+  <h2>{{ welcome }}</h2>
+  <ul>
+    @for (task of tasks; track $index) {
+    <li>{{ task }}</li>
+    }
+  </ul>
+
+  <ul>
+    <!-- string interpolation = {{ variable }} -->
+    <li *ngFor="let task of tasks">{{ task }}</li>
+  </ul>
+  <hr />
+  <h2>{{ "Hola".repeat(4) }}</h2>
+  <p>la suma de 3 + 3 es {{ 3 + 3 }}</p>
+  <p>Hola soy {{ name() }} y mi edad es {{ getAge() }}</p>
+  <hr />
+  <img [src]="person.avatar" alt="" />
+  <!-- property binding = [] -->
+  <input type="number" [value]="person.age" />
+  <button [disabled]="disabled">Click me</button>
+  <p>person: {{ person.name }}</p>
+  <hr />
+  <!-- event binding = (event) -->
+  <button (click)="clickHandler()">click me</button>
+  <button (dblclick)="clickHandler()">double me</button>
+  <p>(change)</p>
+  <!-- syntax special for $event -->
+  <input type="number" [value]="person.age" (change)="changeHandler($event)" />
+  <p>(change)</p>
+  <!-- syntax special for $event -->
+  <input type="text" [value]="person.name" (change)="changeHandler($event)" />
+  <p>(keydown + shortcut )</p>
+  <!-- syntax special for $event -->
+  <input type="text" [value]="person.name" (keydown.shift.t)="clickHandler()" />
+  <hr />
+  <h1>Signals</h1>
+  <input type="text" [value]="name()" (change)="changeHandler($event)" />
+  <p>name: {{ name() }}</p>
+</div>
