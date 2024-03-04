@@ -116,4 +116,8 @@ export class HomeComponent implements OnInit {
   changeFilter(filter: 'all' | 'pending' | 'completed') {
     this.filter.set(filter);
   }
+
+  clearCompleted() {
+    this.tasks.update((tasks) => tasks.filter((task) => !task.completed));
+  }
 }
