@@ -11,7 +11,9 @@
   <ul>
     <!-- string interpolation = {{ variable }} -->
     <p>total: {{ tasks().length }}</p>
-    <li *ngFor="let task of tasks(); index as i">{{ i }} {{ task }}</li>
+    @for (task of tasks(); track task; let i = $index) {
+    <li>{{ i }} {{ task }}</li>
+    }
   </ul>
   <hr />
   <h2>{{ "Hola".repeat(4) }}</h2>
@@ -50,25 +52,34 @@
   <p>name: {{ name() }}</p>
   <hr />
   <!-- ng if -->
-  <div *ngIf="1 === 1">My content</div>
-  <div *ngIf="name() === 'Judá'">Soy Judá</div>
+  @if (1 === 1) {
+  <div>My content</div>
+  } @if (name() === 'Judá') {
+  <div>Soy Judá</div>
+  }
   <input type="number" [value]="person().age" (change)="changeAge($event)" />
   <!-- else -->
-  <div *ngIf="person().name === 'Judá' && person().age > 18; else elseBlock">
-    Soy Judá y soy mayor de 18
-  </div>
+  @if (person().name === 'Judá' && person().age > 18) {
+  <div>Soy Judá y soy mayor de 18</div>
+  } @else { Soy Judá y soy menor de 18 }
   <!-- else block - template -->
-  <ng-template #elseBlock> Soy Judá y soy menor de 18 </ng-template>
   <hr />
   <!-- ng switch -->
   <input type="text" [value]="person().name" (change)="changeName($event)" />
-  <div [ngSwitch]="person().name">
-    <p *ngSwitchCase="'nicolas'">yo soy nicolas</p>
-    <p *ngSwitchCase="'julian'">yo soy julian</p>
-    <p *ngSwitchCase="'ana'">yo soy ana</p>
-    <p *ngSwitchCase="'valentina'">yo soy valentina</p>
-    <p *ngSwitchCase="'Judá'">yo soy Judá</p>
-    <p *ngSwitchDefault>no no soy nadie</p>
+  <div>
+    @switch (person().name) { @case ('nicolas') {
+    <p>yo soy nicolas</p>
+    } @case ('julian') {
+    <p>yo soy julian</p>
+    } @case ('ana') {
+    <p>yo soy ana</p>
+    } @case ('valentina') {
+    <p>yo soy valentina</p>
+    } @case ('Judá') {
+    <p>yo soy Judá</p>
+    } @default {
+    <p>no no soy nadie</p>
+    } }
   </div>
   <hr />
   <input type="color" [formControl]="colorCtrl" />
