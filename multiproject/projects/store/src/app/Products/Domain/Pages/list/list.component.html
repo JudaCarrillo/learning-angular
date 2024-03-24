@@ -1,38 +1,8 @@
-<div class="grid grid-cols-3 gap-4">
-  <app-product
-    [title]="title"
-    [price]="price"
-    [img]="img"
-    (addToCart)="fromChild($event)"
-  />
-  <app-product
-    [title]="title"
-    [price]="price"
-    [img]="img"
-    (addToCart)="fromChild($event)"
-  />
-  <app-product
-    [title]="title"
-    [price]="price"
-    [img]="img"
-    (addToCart)="fromChild($event)"
-  />
-  <app-product
-    [title]="title"
-    [price]="price"
-    [img]="img"
-    (addToCart)="fromChild($event)"
-  />
-  <app-product
-    [title]="title"
-    [price]="price"
-    [img]="img"
-    (addToCart)="fromChild($event)"
-  />
-  <app-product
-    [title]="title"
-    [price]="price"
-    [img]="img"
-    (addToCart)="fromChild($event)"
-  />
+<div class="container mx-auto">
+  <app-header />
+  <div class="grid grid-cols-4 gap-6 mt-5">
+    @for (product of products(); track $index) {
+    <app-product [product]="product" (addToCart)="addToCart($event)" />
+    }
+  </div>
 </div>

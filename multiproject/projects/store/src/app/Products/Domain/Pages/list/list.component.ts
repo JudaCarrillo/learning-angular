@@ -1,21 +1,36 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductComponent } from '../../Components/product/product.component';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { HeaderComponent } from '@shared/Components/header/header.component';
+import { CartService } from '@shared/Services/cart.service';
+import { ProductComponent } from '@products/Components/product/product.component';
+import { Product } from '@products/Interfaces/product.model';
+import { ProductService } from '@products/Services/product.service';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [ProductComponent, CommonModule],
+  imports: [ProductComponent, CommonModule, HeaderComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
 })
-export class ListComponent {
-  fromChild(event: string) {
-    console.log('estamos en el padre');
-    console.log(event);
+export class ListComponent implements OnInit {
+  products = signal<Product[]>([]);
+
+  private cartService = inject(CartService);
+  private productService = inject(ProductService);
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
   }
 
-  title: string = 'product';
-  price: number = 11;
-  img: string = 'https://picsum.photos/200/300';
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products.set(products as Product[]);
+      },
+      error: () => {
+        this.products.set([]);
+      },
+    });
+  }
 }
